@@ -10,7 +10,7 @@ const About = () => {
           <div className="banner">
             <div className="top">
               <h1 className="heading">ABOUT US</h1>
-              <p>The only thing we're serious about is food.</p>
+              <p>The only thing we're serious about is food.:::</p>
             </div>
             <p className="mid">
               Notre restaurant est l'une des meilleur restaurant au maroc

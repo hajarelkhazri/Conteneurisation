@@ -4,6 +4,7 @@ import cors from "cors";
 import { errorMiddleware } from "./middlewares/error.js";
 import reservationRouter from "./routes/reservationRoute.js";
 import { dbConnection } from "./database/dbConnection.js";
+import mongoose from "mongoose";
 
 const app = express();
 dotenv.config({ path: "./config.env" });
@@ -27,5 +28,23 @@ app.get("/", (req, res, next)=>{return res.status(200).json({
 dbConnection();
 
 app.use(errorMiddleware);
+
+mongoose.connect(
+  `mongodb://mongo:27017/docker-db` ,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  (err) =>{
+    if(err){
+      console.error("FAILED TO CONNECT TO MONGODB").
+      console.error(err);
+    }else{
+      console.log("CONNECTED TO MONGODB!!");
+      app.listen(80);
+    }
+  }
+);
+
 
 export default app;

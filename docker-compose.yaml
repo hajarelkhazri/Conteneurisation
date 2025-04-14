@@ -1,30 +1,30 @@
-version: "3.8"
+version: "3"
 services:
-  mongodb:
-    image: "mongo"
+  mongo:
+    image: mongo:6.0
+    container_name: mongo
+    ports:
+      - "27017:27017"
     volumes:
-      - data:/data/db
+      - mongo-data:/data/db
+
   backend:
     build: ./backend
     ports:
       - "80:80"
-    volumes:
-      - logs:/app/logs
-      - ./backend:/app
-      - /app/node_modules
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/docker-db
     depends_on:
-      - mongodb
+      - mongo
 
   frontend:
     build: ./frontend
     ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend/src:/app/src
-    stdin_open: true
-    tty: true
+      - "5173:5173"
     depends_on:
       - backend
+
 volumes:
-  data:
-  logs:
+  mongo-data:
+
+  
